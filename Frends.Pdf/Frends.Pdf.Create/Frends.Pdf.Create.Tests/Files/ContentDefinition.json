@@ -1,0 +1,38 @@
+{
+  "HasHeaderRow": true,
+  "TableType": 0,
+  "StyleSettings": {
+    "FontFamily": "Times New Roman",
+    "FontSizeInPt": 9.0,
+    "FontStyle": 0,
+    "LineSpacingInPt": 0.0,
+    "SpacingBeforeInPt": 0.0,
+    "SpacingAfterInPt": 0.0,
+    "BorderWidthInPt": 0.5,
+    "BorderStyle": 3
+  },
+  "Columns": [
+    {
+      "Name": "Column1",
+      "WidthInCm": 4.0,
+      "HeightInCm": 0.0,
+      "Type": 0
+    },
+    {
+      "Name": "Column2",
+      "WidthInCm": 5.0,
+      "HeightInCm": 0.0,
+      "Type": 0
+    }
+  ],
+  "RowData": [
+    {
+      "Column1": "Value1",
+      "Column2": "Value2"
+    },
+    {
+      "Column1": "Value1",
+      "Column2": "Value2"
+    }
+  ]
+}

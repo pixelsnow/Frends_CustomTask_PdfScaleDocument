@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Version>1.2.0</Version>
+        <Authors>Frends</Authors>
+        <Copyright>Copyright (c) 2026 Frends EiPaaS</Copyright>
+        <Company>Frends</Company>
+        <Product>Frends</Product>
+        <PackageTags>Frends</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <Description>Frends task to read Pdf documents.</Description>
+        <PackageProjectUrl>https://frends.com/</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/FrendsPlatform/Frends.Pdf/tree/main/Frends.Pdf.Read</RepositoryUrl>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+        <PackageReference Include="PdfPig" Version="0.1.13" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="FrendsTaskAnalyzers" Version="1.*">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="migration.json" PackagePath="/" Pack="true" />
+        <Content Include="../CHANGELOG.md" PackagePath="/" Pack="true" />
+        <Content Include="LICENSE" PackagePath="/" Pack="true" />
+		<Content Include="FrendsTaskMetadata.json"
+				 Pack="true"
+				 PackagePath="/"
+				 CopyToOutputDirectory="PreserveNewest" />
+		<AdditionalFiles Include="FrendsTaskMetadata.json" />
+    </ItemGroup>
+</Project>

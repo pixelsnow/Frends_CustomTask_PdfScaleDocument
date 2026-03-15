@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Version>2.0.0</Version>
+    <Authors>Frends</Authors>
+	<Copyright>Frends</Copyright>
+	<Company>Frends</Company>
+	<Product>Frends</Product>
+	<PackageTags>Frends</PackageTags>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<Description>Frends task to create Pdf documents.</Description>
+	<PackageProjectUrl>https://frends.com/</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/FrendsPlatform/Frends.Pdf/</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <None Include="FrendsTaskMetadata.json" Pack="true" PackagePath="/">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="OpenFontSharp" Version="1.0.0" />
+    <PackageReference Include="PDFsharp-MigraDoc" Version="6.2.4" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+</Project>

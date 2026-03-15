@@ -1,0 +1,32 @@
+name: BuildMaster
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  azure_artifacts_feed_url: https://pkgs.dev.azure.com/frends-platform/frends-tasks/_packaging/main/nuget/v3/index.json
+
+jobs:
+  build:
+    name: Build master on ubuntu-latest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.0.1
+
+      - name: Pack release version
+        run: dotnet pack --configuration Release
+
+      - uses: actions/setup-dotnet@v5.0.1
+        with:
+          dotnet-version: '8.0.x'
+          source-url: ${{ env.azure_artifacts_feed_url }}
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.TASKS_FEED_API_KEY }}
+
+      - name: Push NuGet package(s) to the prod feed
+        run: dotnet nuget push bin/Release/frendstasktemplate.*.nupkg --api-key ${{ secrets.TASKS_FEED_API_KEY }} --source ${{ env.azure_artifacts_feed_url }}
+
