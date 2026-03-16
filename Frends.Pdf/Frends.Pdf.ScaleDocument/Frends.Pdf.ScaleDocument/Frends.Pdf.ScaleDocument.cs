@@ -3,9 +3,9 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading;
 using Frends.Pdf.ScaleDocument.Definitions;
+using MigraDoc.DocumentObjectModel;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
-using MigraDoc.DocumentObjectModel;
 
 namespace Frends.Pdf.ScaleDocument
 {
@@ -21,32 +21,29 @@ namespace Frends.Pdf.ScaleDocument
         {
             try
             {
-                if (input.InputFilePath == null)
-                    throw new Exception("No input file specified.");
+                if (input.InputBase64 == null)
+                    throw new Exception("InputBase64 is not given.");
+                
+                byte[] inputBytes;
+                try
+                {
+                    inputBytes = Convert.FromBase64String(input.InputBase64);
+                }
+                catch
+                {
+                    throw new Exception("InputBase64 is not valid Base64.");
+                }
 
-                if (File.Exists(input.DestinationFilePath))
-                    throw new Exception("Destination file already exists.");
-
-                if (Path.GetExtension(input.DestinationFilePath)?.Equals(".pdf", StringComparison.OrdinalIgnoreCase) != true)
-                    throw new Exception("Destination file must have .pdf extension.");
-
-                var sourcePath = input.InputFilePath;
-
-                // Load external PDF as a form once; switch PageNumber per iteration.
-                using var form = XPdfForm.FromFile(sourcePath);
-
+                using var inputStream = new MemoryStream(inputBytes);
+                using var form = XPdfForm.FromStream(inputStream);
                 using var output = new PdfDocument();
 
                 // Get the selected page size.
                 PageSetup.GetPageSize(input.Size.ConvertEnum<PageFormat>(), out Unit width, out Unit height);
 
-                // target dimensions in points
+                // Target dimensions in points
                 double targetSizeWidthPt = width.Point;
                 double targetSizeHeightPt = height.Point;
-
-                // A4 dimensions in points (72 dpi * 8.27 x 11.69 inches)
-                // const double A4WidthPt = 595.28;  // 210 mm
-                // const double A4HeightPt = 841.89; // 297 mm
 
                 for (var pageIndex = 0; pageIndex < form.PageCount; pageIndex++)
                 {
@@ -56,8 +53,8 @@ namespace Frends.Pdf.ScaleDocument
                     form.PageNumber = pageIndex + 1;
 
                     // Determine source page orientation
-                    var srcWidth = form.PointWidth;   // width of the selected source page
-                    var srcHeight = form.PointHeight; // height of the selected source page
+                    var srcWidth = form.PointWidth;
+                    var srcHeight = form.PointHeight;
                     var landscape = srcWidth > srcHeight;
 
                     var targetWidth = landscape ? targetSizeHeightPt : targetSizeWidthPt;
@@ -84,13 +81,11 @@ namespace Frends.Pdf.ScaleDocument
                     gfx.DrawImage(form, new XRect(dx, dy, drawWidth, drawHeight));
                 }
 
-                var dir = Path.GetDirectoryName(input.DestinationFilePath);
-                if (!string.IsNullOrEmpty(dir))
-                    Directory.CreateDirectory(dir);
+                using var outputStream = new MemoryStream();
+                output.Save(outputStream);
+                string resultBase64 = Convert.ToBase64String(outputStream.ToArray());
 
-                output.Save(input.DestinationFilePath);
-
-                return new Result { Success = true, ResultFilePath = input.DestinationFilePath, Error = null };
+                return new Result { Success = true, ResultFilePath = resultBase64, Error = null };
             }
             catch (Exception e) when (e is not OperationCanceledException)
             {

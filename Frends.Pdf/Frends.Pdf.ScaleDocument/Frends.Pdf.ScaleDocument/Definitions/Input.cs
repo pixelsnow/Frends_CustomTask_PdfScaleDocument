@@ -8,17 +8,9 @@ namespace Frends.Pdf.ScaleDocument.Definitions;
 public class Input
 {
     /// <summary>
-    /// Path to file to scale.
+    /// Base64 encoded binary data of the file to scale.
     /// </summary>
-    /// <example>"C:/files/source.pdf"</example>
-    public string InputFilePath { get; set; }
-
-    /// <summary>
-    /// Path where to save scaled Pdf.
-    /// </summary>
-    /// <example>"C:/files/result.pdf"</example>
-    [DefaultValue("")]
-    public string DestinationFilePath { get; set; }
+    public string InputBase64 { get; set; }
 
     /// <summary>
     /// Document page size to which to scale.

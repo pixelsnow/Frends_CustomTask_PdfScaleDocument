@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics; // TODO: remove after debugging
 using System.IO;
 using System.Threading;
 using Frends.Pdf.ScaleDocument.Definitions;
@@ -14,22 +13,30 @@ namespace Frends.Pdf.ScaleDocument.Tests;
 public class UnitTests
 {
     private static readonly string TestDataDir = Path.Combine(AppContext.BaseDirectory, "TestData");
-    private static readonly string ResultDir = Path.Combine(TestDataDir, "result");
-    private static readonly string ExpectedOutputPath = Path.Combine(TestDataDir, "expectedOutput.pdf");
     private static readonly string ExpectedOutputPortraitPath = Path.Combine(TestDataDir, "A4_portrait_2pages.pdf");
     private static readonly string ExpectedOutputLandscapePath = Path.Combine(TestDataDir, "A4_landscape_2pages.pdf");
 
     private static Input PortraitInput => new()
     {
-        InputFilePath = Path.Combine(TestDataDir, "A3_portrait_2pages.pdf"),
-        DestinationFilePath = Path.Combine(ResultDir, "A4_portrait_2pages.pdf"),
+        InputBase64 = ReadFileAsBase64(Path.Combine(TestDataDir, "A3_portrait_2pages.pdf")),
         Size = PageSizeEnum.A4,
     };
 
     private static Input LandscapeInput => new()
     {
-        InputFilePath = Path.Combine(TestDataDir, "A3_landscape_2pages.pdf"),
-        DestinationFilePath = Path.Combine(ResultDir, "A4_landscape_2pages.pdf"),
+        InputBase64 = ReadFileAsBase64(Path.Combine(TestDataDir, "A3_landscape_2pages.pdf")),
+        Size = PageSizeEnum.A4,
+    };
+
+    private static Input InvalidBase64Input => new()
+    {
+        InputBase64 = "invalid_base64_string",
+        Size = PageSizeEnum.A4,
+    };
+
+    private static Input InvalidNonPdfInput => new()
+    {
+        InputBase64 = ReadFileAsBase64(Path.Combine(TestDataDir, "invalid.txt")),
         Size = PageSizeEnum.A4,
     };
 
@@ -40,24 +47,13 @@ public class UnitTests
         FileExistsAction = FileExistsActionEnum.Error,
     };
 
-    [SetUp]
-    public void ClearResults()
-    {
-        if (Path.Exists(ResultDir))
-        {
-            if (File.Exists(ResultDir)) File.Delete(ResultDir);
-            else
-                Directory.Delete(ResultDir, recursive: true);
-        }
-    }
-
     [Test]
     public void ShouldScalePortraitFile()
     {
         var input = PortraitInput;
         var result = Pdf.ScaleDocument(input, DefaultOptions, CancellationToken.None);
-        Assert.That(FilesHaveSameDimensions(ExpectedOutputPortraitPath, input.DestinationFilePath), Is.True);
         Assert.That(result.Success, Is.True);
+        Assert.That(BinaryPdfsHaveSamePageDimensions(File.ReadAllBytes(ExpectedOutputPortraitPath), Convert.FromBase64String(result.ResultFilePath)), Is.True);
     }
 
     [Test]
@@ -65,23 +61,21 @@ public class UnitTests
     {
         var input = LandscapeInput;
         var result = Pdf.ScaleDocument(input, DefaultOptions, CancellationToken.None);
-        Assert.That(FilesHaveSameDimensions(ExpectedOutputLandscapePath, input.DestinationFilePath), Is.True);
         Assert.That(result.Success, Is.True);
+        Assert.That(BinaryPdfsHaveSamePageDimensions(File.ReadAllBytes(ExpectedOutputLandscapePath), Convert.FromBase64String(result.ResultFilePath)), Is.True);
     }
 
     [Test]
-    public void ShouldFailIfInputFileDoesNotExist()
+    public void ShouldFailIfbase64StringIsInvalid()
     {
-        var input = PortraitInput;
-        input.InputFilePath = Path.Combine(TestDataDir, "nonexistent.pdf");
+        var input = InvalidBase64Input;
         Assert.Throws<Exception>(() => Pdf.ScaleDocument(input, DefaultOptions, CancellationToken.None));
     }
 
     [Test]
-    public void ShouldFailIfInputFileIsNotPdf()
+    public void ShouldFailIfInputIsNotPdfEvenIfBase64()
     {
-        var input = PortraitInput;
-        input.InputFilePath = Path.Combine(TestDataDir, "invalid.txt");
+        var input = InvalidNonPdfInput;
         Assert.Throws<Exception>(() => Pdf.ScaleDocument(input, DefaultOptions, CancellationToken.None));
     }
 
@@ -95,18 +89,9 @@ public class UnitTests
     */
 
     [Test]
-    public void ShouldFailIfOutputPathIsInvalid()
-    {
-        var input = PortraitInput;
-        input.DestinationFilePath = Path.Combine(TestDataDir, "result");
-        Assert.Throws<Exception>(() => Pdf.ScaleDocument(input, DefaultOptions, CancellationToken.None));
-    }
-
-    [Test]
     public void ReturnFailedResultIfThrowErrorFlagIsDisabled()
     {
-        var input = PortraitInput;
-        input.InputFilePath = Path.Combine(TestDataDir, "invalid.txt");
+        var input = InvalidNonPdfInput;
         var options = DefaultOptions;
         options.ThrowErrorOnFailure = false;
         var result = Pdf.ScaleDocument(input, options, CancellationToken.None);
@@ -116,29 +101,19 @@ public class UnitTests
     [Test]
     public void DefaultErrorMessageOnFailureIsUsed()
     {
-        var input = PortraitInput;
-        input.InputFilePath = Path.Combine(TestDataDir, "invalid.txt");
+        var input = InvalidNonPdfInput;
         var options = DefaultOptions;
         options.ErrorMessageOnFailure = "Test message";
         var ex = Assert.Throws<Exception>(() => Pdf.ScaleDocument(input, options, CancellationToken.None));
         Assert.That(ex!.Message, Is.EqualTo("Test message"));
     }
 
-    /*
-    private static bool FilesHaveSameSize(string path1, string path2)
+    private static bool BinaryPdfsHaveSamePageDimensions(byte[] path1, byte[] path2)
     {
-        TestContext.WriteLine($"Comparing file sizes: {path1} and {path2}");
-        var f1 = new FileInfo(path1);
-        var f2 = new FileInfo(path2);
-        TestContext.WriteLine($"File sizes: {f1.Length} and {f2.Length}");
-        return f1.Length == f2.Length;
-    }
-    */
-
-    private static bool FilesHaveSameDimensions(string path1, string path2)
-    {
-        using var doc1 = PdfReader.Open(path1, PdfDocumentOpenMode.Import);
-        using var doc2 = PdfReader.Open(path2, PdfDocumentOpenMode.Import);
+        using var stream1 = new MemoryStream(path1);
+        using var stream2 = new MemoryStream(path2);
+        using var doc1 = PdfReader.Open(stream1, PdfDocumentOpenMode.Import);
+        using var doc2 = PdfReader.Open(stream2, PdfDocumentOpenMode.Import);
 
         // First make sure that files have the same number of pages
         if (doc1.PageCount != doc2.PageCount)
@@ -155,4 +130,6 @@ public class UnitTests
 
         return true;
     }
+
+    private static string ReadFileAsBase64(string path) => Convert.ToBase64String(File.ReadAllBytes(path));
 }
