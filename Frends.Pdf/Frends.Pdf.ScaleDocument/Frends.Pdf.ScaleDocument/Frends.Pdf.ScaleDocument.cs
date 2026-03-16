@@ -64,8 +64,8 @@ namespace Frends.Pdf.ScaleDocument
                     var targetHeight = landscape ? targetSizeWidthPt : targetSizeHeightPt;
 
                     var newPage = output.AddPage();
-                    newPage.Width = targetWidth;
-                    newPage.Height = targetHeight;
+                    newPage.Width = XUnit.FromPoint(targetWidth);
+                    newPage.Height = XUnit.FromPoint(targetHeight);
 
                     using var gfx = XGraphics.FromPdfPage(newPage);
 

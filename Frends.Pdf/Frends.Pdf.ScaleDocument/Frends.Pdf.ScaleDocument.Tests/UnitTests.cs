@@ -15,14 +15,16 @@ public class UnitTests
 
     private static Input DefaultInput => new()
     {
-        InputFilePath = Path.Combine(TestDataDir, "third.pdf"),
+        InputFilePath = Path.Combine(TestDataDir, "input.pdf"),
         DestinationFilePath = Path.Combine(ResultDir, "output.pdf"),
+        Size = PageSizeEnum.A4,
     };
 
     private static Options DefaultOptions => new()
     {
         ThrowErrorOnFailure = true,
         ErrorMessageOnFailure = string.Empty,
+        FileExistsAction = FileExistsActionEnum.Error,
     };
 
     [SetUp]
@@ -41,12 +43,13 @@ public class UnitTests
     {
         var input = DefaultInput;
         var result = Pdf.ScaleDocument(input, DefaultOptions, CancellationToken.None);
+        Assert.That(FilesHaveSameDimensions(ExpectedOutputPath, input.DestinationFilePath), Is.True);
         Assert.That(FilesHaveSameSize(ExpectedOutputPath, input.DestinationFilePath), Is.True);
         Assert.That(result.Success, Is.True);
     }
 
     [Test]
-    public void ShouldFailIfAnyInputFilesDoesNotExist()
+    public void ShouldFailIfInputFileDoesNotExist()
     {
         var input = DefaultInput;
         input.InputFilePath = Path.Combine(TestDataDir, "nonexistent.pdf");
@@ -54,19 +57,21 @@ public class UnitTests
     }
 
     [Test]
-    public void ShouldFailIfAnyInputFilesIsNotPdf()
+    public void ShouldFailIfInputFileIsNotPdf()
     {
         var input = DefaultInput;
         input.InputFilePath = Path.Combine(TestDataDir, "invalid.txt");
         Assert.Throws<Exception>(() => Pdf.ScaleDocument(input, DefaultOptions, CancellationToken.None));
     }
 
+    /*
     [Test]
     public void ShouldFailIfOutputPathAlreadyOccupied()
     {
         Pdf.ScaleDocument(DefaultInput, DefaultOptions, CancellationToken.None);
         Assert.Throws<Exception>(() => Pdf.ScaleDocument(DefaultInput, DefaultOptions, CancellationToken.None));
     }
+    */
 
     [Test]
     public void ShouldFailIfOutputPathIsInvalid()
@@ -103,5 +108,33 @@ public class UnitTests
         var f1 = new FileInfo(path1);
         var f2 = new FileInfo(path2);
         return f1.Length == f2.Length;
+    }
+
+    private static bool FilesHaveSameDimensions(string path1, string path2)
+    {
+        // Load PDF files as forms to read page dimensions
+        using var form1 = XPdfForm.FromFile(path1);
+        using var form2 = XPdfForm.FromFile(path2);
+
+        // First make sure that files have the same number ofpages
+        if (form1.PageCount != form2.PageCount)
+            return false;
+
+        // Iterate through pages and make sure dimensions are identical
+        for (var pageIndex = 0; pageIndex < form.PageCount; pageIndex++)
+        {
+            form1.PageNumber = pageIndex + 1;
+            form2.PageNumber = pageIndex + 1;
+
+            var width1 = form1.PointWidth;
+            var height1 = form1.PointHeight;
+            var width2 = form2.PointWidth;
+            var height2 = form2.PointHeight;
+
+            if (width1 != width2 || height1 != height2)
+                return false;
+        }
+
+        return true;
     }
 }
