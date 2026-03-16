@@ -4,15 +4,15 @@
         <TargetFramework>net8.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Version>1.0.2</Version>
-        <Authors>Frends</Authors>
-        <Copyright>Copyright (c) 2025 Frends EiPaaS</Copyright>
-        <Company>Frends</Company>
-        <Product>Frends</Product>
-        <PackageTags>Frends</PackageTags>
+        <Authors>Valeria Vagapova</Authors>
+        <Copyright>Copyright (c) 2026 Bravedo Oy</Copyright>
+        <Company>Bravedo Oy</Company>
+        <Product>Frends task - Pdf.ScaleDocument</Product>
+        <PackageTags>Frends; Pdf; Scale; PdfSharp</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <Description>Task to scale Pdf document to A4.</Description>
-        <PackageProjectUrl>https://frends.com/</PackageProjectUrl>
+        <PackageProjectUrl></PackageProjectUrl>
     </PropertyGroup>
 
     <ItemGroup>
