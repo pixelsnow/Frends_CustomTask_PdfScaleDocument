@@ -10,7 +10,7 @@ public class Error
     /// <summary>
     /// Summary of the error.
     /// </summary>
-    /// <example>Unable to merge Pdfs.</example>
+    /// <example>Unable to scale Pdf.</example>
     public string Message { get; set; }
 
     /// <summary>

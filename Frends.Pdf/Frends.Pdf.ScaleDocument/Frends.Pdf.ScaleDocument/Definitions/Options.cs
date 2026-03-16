@@ -9,6 +9,13 @@ namespace Frends.Pdf.ScaleDocument.Definitions;
 public class Options
 {
     /// <summary>
+    /// What to do if destination file already exists.
+    /// </summary>
+    /// <example>Error</example>
+    [DefaultValue(FileExistsActionEnum.Error)]
+    public FileExistsActionEnum FileExistsAction { get; set; }
+
+    /// <summary>
     /// Whether to throw an error on failure.
     /// </summary>
     /// <example>false</example>

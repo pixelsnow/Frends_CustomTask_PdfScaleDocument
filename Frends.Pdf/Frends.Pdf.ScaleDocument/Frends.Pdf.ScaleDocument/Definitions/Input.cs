@@ -8,15 +8,22 @@ namespace Frends.Pdf.ScaleDocument.Definitions;
 public class Input
 {
     /// <summary>
-    /// Paths to file to scale.
+    /// Path to file to scale.
     /// </summary>
-    /// <example>["C:/files/foo.pdf", "C:/files/bar.pdf"]</example>
-    public string[] InputFilePaths { get; set; }
+    /// <example>"C:/files/source.pdf"</example>
+    public string InputFilePath { get; set; }
 
     /// <summary>
     /// Path where to save scaled Pdf.
     /// </summary>
-    /// <example>"C:/files/merged.pdf"</example>
+    /// <example>"C:/files/result.pdf"</example>
     [DefaultValue("")]
     public string DestinationFilePath { get; set; }
+
+    /// <summary>
+    /// Document page size to which to scale.
+    /// </summary>
+    /// <example>A4</example>
+    [DefaultValue(PageSizeEnum.A4)]
+    public PageSizeEnum Size { get; set; }
 }

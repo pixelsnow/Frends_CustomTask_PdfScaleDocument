@@ -15,12 +15,7 @@ public class UnitTests
 
     private static Input DefaultInput => new()
     {
-        InputFilePaths =
-        [
-            Path.Combine(TestDataDir, "first.pdf"),
-            Path.Combine(TestDataDir, "second.pdf"),
-            Path.Combine(TestDataDir, "third.pdf")
-        ],
+        InputFilePath = Path.Combine(TestDataDir, "third.pdf"),
         DestinationFilePath = Path.Combine(ResultDir, "output.pdf"),
     };
 
@@ -54,7 +49,7 @@ public class UnitTests
     public void ShouldFailIfAnyInputFilesDoesNotExist()
     {
         var input = DefaultInput;
-        input.InputFilePaths[0] = Path.Combine(TestDataDir, "nonexistent.pdf");
+        input.InputFilePath = Path.Combine(TestDataDir, "nonexistent.pdf");
         Assert.Throws<Exception>(() => Pdf.ScaleDocument(input, DefaultOptions, CancellationToken.None));
     }
 
@@ -62,7 +57,7 @@ public class UnitTests
     public void ShouldFailIfAnyInputFilesIsNotPdf()
     {
         var input = DefaultInput;
-        input.InputFilePaths[0] = Path.Combine(TestDataDir, "invalid.txt");
+        input.InputFilePath = Path.Combine(TestDataDir, "invalid.txt");
         Assert.Throws<Exception>(() => Pdf.ScaleDocument(input, DefaultOptions, CancellationToken.None));
     }
 
@@ -85,7 +80,7 @@ public class UnitTests
     public void ReturnFailedResultIfThrowErrorFlagIsDisabled()
     {
         var input = DefaultInput;
-        input.InputFilePaths[0] = Path.Combine(TestDataDir, "invalid.txt");
+        input.InputFilePath = Path.Combine(TestDataDir, "invalid.txt");
         var options = DefaultOptions;
         options.ThrowErrorOnFailure = false;
         var result = Pdf.ScaleDocument(input, options, CancellationToken.None);
@@ -96,7 +91,7 @@ public class UnitTests
     public void DefaultErrorMessageOnFailureIsUsed()
     {
         var input = DefaultInput;
-        input.InputFilePaths[0] = Path.Combine(TestDataDir, "invalid.txt");
+        input.InputFilePath = Path.Combine(TestDataDir, "invalid.txt");
         var options = DefaultOptions;
         options.ErrorMessageOnFailure = "Test message";
         var ex = Assert.Throws<Exception>(() => Pdf.ScaleDocument(input, options, CancellationToken.None));

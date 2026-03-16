@@ -12,6 +12,12 @@ public class Result
     public bool Success { get; set; }
 
     /// <summary>
+    /// Path to the scaled PDF file.
+    /// </summary>
+    /// <example>"C:/files/result.pdf"</example>
+    public string ResultFilePath { get; set; }
+
+    /// <summary>
     /// Error that occurred during task execution.
     /// </summary>
     /// <example>object { string Message, object { Exception AdditionalInfo } }</example>
