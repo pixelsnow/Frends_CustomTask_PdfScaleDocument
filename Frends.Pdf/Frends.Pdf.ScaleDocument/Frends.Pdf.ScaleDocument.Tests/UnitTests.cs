@@ -53,7 +53,7 @@ public class UnitTests
         var input = PortraitInput;
         var result = Pdf.ScaleDocument(input, DefaultOptions, CancellationToken.None);
         Assert.That(result.Success, Is.True);
-        Assert.That(BinaryPdfsHaveSamePageDimensions(File.ReadAllBytes(ExpectedOutputPortraitPath), Convert.FromBase64String(result.ResultFilePath)), Is.True);
+        Assert.That(BinaryPdfsHaveSamePageDimensions(File.ReadAllBytes(ExpectedOutputPortraitPath), Convert.FromBase64String(result.ResultBase64)), Is.True);
     }
 
     [Test]
@@ -62,7 +62,7 @@ public class UnitTests
         var input = LandscapeInput;
         var result = Pdf.ScaleDocument(input, DefaultOptions, CancellationToken.None);
         Assert.That(result.Success, Is.True);
-        Assert.That(BinaryPdfsHaveSamePageDimensions(File.ReadAllBytes(ExpectedOutputLandscapePath), Convert.FromBase64String(result.ResultFilePath)), Is.True);
+        Assert.That(BinaryPdfsHaveSamePageDimensions(File.ReadAllBytes(ExpectedOutputLandscapePath), Convert.FromBase64String(result.ResultBase64)), Is.True);
     }
 
     [Test]
