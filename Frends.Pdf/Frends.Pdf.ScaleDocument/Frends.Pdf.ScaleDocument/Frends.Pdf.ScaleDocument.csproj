@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>1.0.4</Version>
+        <Version>1.0.5</Version>
         <Authors>Valeria Vagapova</Authors>
         <Copyright>Copyright (c) 2026 Bravedo Oy</Copyright>
         <Company>Bravedo Oy</Company>

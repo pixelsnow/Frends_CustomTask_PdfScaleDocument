@@ -85,7 +85,7 @@ namespace Frends.Pdf.ScaleDocument
                 output.Save(outputStream);
                 string resultBase64 = Convert.ToBase64String(outputStream.ToArray());
 
-                return new Result { Success = true, ResultFilePath = resultBase64, Error = null };
+                return new Result { Success = true, ResultBase64 = resultBase64, Error = null };
             }
             catch (Exception e) when (e is not OperationCanceledException)
             {
