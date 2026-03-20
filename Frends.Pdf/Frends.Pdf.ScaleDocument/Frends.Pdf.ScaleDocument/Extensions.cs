@@ -3,7 +3,7 @@
 namespace Frends.Pdf.ScaleDocument;
 
 // Extension class for extending class methods.
-static class Extensions
+public static class Extensions
 {
     // Extension method to make enum conversion.
     public static TEnum ConvertEnum<TEnum>(this Enum source)

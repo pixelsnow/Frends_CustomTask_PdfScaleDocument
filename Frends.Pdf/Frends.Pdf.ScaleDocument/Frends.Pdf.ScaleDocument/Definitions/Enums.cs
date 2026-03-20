@@ -9,10 +9,12 @@ public enum FileExistsActionEnum
     /// Throw error.
     /// </summary>
     Error,
+
     /// <summary>
     /// Overwrite the existing document.
     /// </summary>
     Overwrite,
+
     /// <summary>
     /// Rename the new document.
     /// </summary>

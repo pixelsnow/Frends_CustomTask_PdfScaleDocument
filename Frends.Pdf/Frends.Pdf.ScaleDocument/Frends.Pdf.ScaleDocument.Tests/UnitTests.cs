@@ -19,12 +19,14 @@ public class UnitTests
     private static Input PortraitInput => new()
     {
         InputBase64 = ReadFileAsBase64(Path.Combine(TestDataDir, "A3_portrait_2pages.pdf")),
+        OnlyScaleDown = false,
         Size = PageSizeEnum.A4,
     };
 
     private static Input LandscapeInput => new()
     {
         InputBase64 = ReadFileAsBase64(Path.Combine(TestDataDir, "A3_landscape_2pages.pdf")),
+        OnlyScaleDown = false,
         Size = PageSizeEnum.A4,
     };
 

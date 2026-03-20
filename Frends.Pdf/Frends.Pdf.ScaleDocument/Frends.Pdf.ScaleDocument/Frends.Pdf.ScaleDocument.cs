@@ -23,7 +23,7 @@ namespace Frends.Pdf.ScaleDocument
             {
                 if (input.InputBase64 == null)
                     throw new Exception("InputBase64 is not given.");
-                
+
                 byte[] inputBytes;
                 try
                 {
@@ -49,7 +49,7 @@ namespace Frends.Pdf.ScaleDocument
                 {
                     cancellationToken.ThrowIfCancellationRequested();
 
-                    // Select the source page (1-based)
+                    // Select the source page
                     form.PageNumber = pageIndex + 1;
 
                     // Determine source page orientation
@@ -57,28 +57,45 @@ namespace Frends.Pdf.ScaleDocument
                     var srcHeight = form.PointHeight;
                     var landscape = srcWidth > srcHeight;
 
+                    // Calculate target dimensions based on orientation
                     var targetWidth = landscape ? targetSizeHeightPt : targetSizeWidthPt;
                     var targetHeight = landscape ? targetSizeWidthPt : targetSizeHeightPt;
 
-                    var newPage = output.AddPage();
-                    newPage.Width = XUnit.FromPoint(targetWidth);
-                    newPage.Height = XUnit.FromPoint(targetHeight);
+                    // This is needed to avoid scaling up pages that are smaller than the target size when OnlyScaleDown is true
+                    bool pageIsSmallerThanTarget = srcWidth <= targetWidth && srcHeight <= targetHeight;
 
-                    using var gfx = XGraphics.FromPdfPage(newPage);
+                    if (input.OnlyScaleDown && pageIsSmallerThanTarget)
+                    {
+                        // Copy the page exactly as is without scaling
+                        PdfPage newPage = output.AddPage();
+                        newPage.Width = XUnit.FromPoint(srcWidth);
+                        newPage.Height = XUnit.FromPoint(srcHeight);
+                        using var gfx = XGraphics.FromPdfPage(newPage);
+                        gfx.DrawImage(form, new XRect(0, 0, srcWidth, srcHeight));
+                    }
+                    else
+                    {
+                        // Scale the page to fit inside the target size
+                        PdfPage newPage = output.AddPage();
+                        newPage.Width = XUnit.FromPoint(targetWidth);
+                        newPage.Height = XUnit.FromPoint(targetHeight);
 
-                    // Compute uniform scale to fit inside A4 page
-                    var scaleX = targetWidth / srcWidth;
-                    var scaleY = targetHeight / srcHeight;
-                    var scale = Math.Min(scaleX, scaleY);
+                        using var gfx = XGraphics.FromPdfPage(newPage);
 
-                    // Center the scaled content
-                    var drawWidth = srcWidth * scale;
-                    var drawHeight = srcHeight * scale;
-                    var dx = (targetWidth - drawWidth) / 2.0;
-                    var dy = (targetHeight - drawHeight) / 2.0;
+                        // Compute scale to fit inside the target dimensions while maintaining aspect ratio
+                        var scaleX = targetWidth / srcWidth;
+                        var scaleY = targetHeight / srcHeight;
+                        var scale = Math.Min(scaleX, scaleY);
 
-                    // Draw the selected source page into the A4 page
-                    gfx.DrawImage(form, new XRect(dx, dy, drawWidth, drawHeight));
+                        // Center the scaled content
+                        var drawWidth = srcWidth * scale;
+                        var drawHeight = srcHeight * scale;
+                        var dx = (targetWidth - drawWidth) / 2.0;
+                        var dy = (targetHeight - drawHeight) / 2.0;
+
+                        // Draw the scaled page
+                        gfx.DrawImage(form, new XRect(dx, dy, drawWidth, drawHeight));
+                    }
                 }
 
                 using var outputStream = new MemoryStream();
