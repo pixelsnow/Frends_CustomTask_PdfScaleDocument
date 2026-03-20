@@ -1,0 +1,16 @@
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/bin/Release/net8.0/FrendsTaskMetadata.json
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/bin/Release/net8.0/Frends.Pdf.ScaleDocument.deps.json
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/bin/Release/net8.0/Frends.Pdf.ScaleDocument.dll
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/bin/Release/net8.0/Frends.Pdf.ScaleDocument.pdb
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/bin/Release/net8.0/Frends.Pdf.ScaleDocument.xml
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/obj/Release/net8.0/Frends.Pdf.ScaleDocument.csproj.AssemblyReference.cache
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/obj/Release/net8.0/Frends.Pdf.ScaleDocument.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/obj/Release/net8.0/Frends.Pdf.ScaleDocument.AssemblyInfoInputs.cache
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/obj/Release/net8.0/Frends.Pdf.ScaleDocument.AssemblyInfo.cs
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/obj/Release/net8.0/Frends.Pdf.ScaleDocument.csproj.CoreCompileInputs.cache
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/obj/Release/net8.0/Frends.Pdf.ScaleDocument.sourcelink.json
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/obj/Release/net8.0/Frends.Pdf.ScaleDocument.dll
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/obj/Release/net8.0/refint/Frends.Pdf.ScaleDocument.dll
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/obj/Release/net8.0/Frends.Pdf.ScaleDocument.xml
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/obj/Release/net8.0/Frends.Pdf.ScaleDocument.pdb
+/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/obj/Release/net8.0/ref/Frends.Pdf.ScaleDocument.dll

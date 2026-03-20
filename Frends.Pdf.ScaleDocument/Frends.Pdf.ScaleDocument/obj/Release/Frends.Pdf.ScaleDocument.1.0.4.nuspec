@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Frends.Pdf.ScaleDocument</id>
+    <version>1.0.4</version>
+    <authors>Valeria Vagapova</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <description>Task to scale Pdf document to a specified size.</description>
+    <copyright>Copyright (c) 2026 Bravedo Oy</copyright>
+    <tags>Frends Pdf Scale PdfSharp</tags>
+    <repository type="git" commit="7cd26f638da022ec19b1aa5d916e1f786c3d0307" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="PDFsharp-MigraDoc" version="6.2.4" exclude="Build,Analyzers" />
+        <dependency id="System.ComponentModel.Annotations" version="5.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/bin/Release/net8.0/Frends.Pdf.ScaleDocument.dll" target="lib/net8.0/Frends.Pdf.ScaleDocument.dll" />
+    <file src="/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/bin/Release/net8.0/Frends.Pdf.ScaleDocument.xml" target="lib/net8.0/Frends.Pdf.ScaleDocument.xml" />
+    <file src="/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/CHANGELOG.md" target="/CHANGELOG.md" />
+    <file src="/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/FrendsTaskMetadata.json" target="/FrendsTaskMetadata.json" />
+  </files>
+</package>

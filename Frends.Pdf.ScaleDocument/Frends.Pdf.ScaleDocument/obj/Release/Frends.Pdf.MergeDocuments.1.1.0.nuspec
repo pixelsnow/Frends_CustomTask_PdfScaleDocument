@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Frends.Pdf.MergeDocuments</id>
+    <version>1.1.0</version>
+    <authors>Frends</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <projectUrl>https://frends.com/</projectUrl>
+    <description>Task to merge multiple Pdf documents into one.</description>
+    <copyright>Copyright (c) 2025 Frends EiPaaS</copyright>
+    <tags>Frends</tags>
+    <repository type="git" url="https://github.com/FrendsPlatform/Frends.Pdf/tree/main/Frends.Pdf.MergeDocuments" commit="a23ba0f0175f32cf1ed4019a6f32dc5ce505570f" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="PdfSharpCore" version="1.3.67" exclude="Build,Analyzers" />
+        <dependency id="System.ComponentModel.Annotations" version="5.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.MergeDocuments/bin/Release/net8.0/Frends.Pdf.MergeDocuments.dll" target="lib/net8.0/Frends.Pdf.MergeDocuments.dll" />
+    <file src="/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.MergeDocuments/bin/Release/net8.0/Frends.Pdf.MergeDocuments.xml" target="lib/net8.0/Frends.Pdf.MergeDocuments.xml" />
+    <file src="/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/CHANGELOG.md" target="/CHANGELOG.md" />
+    <file src="/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.MergeDocuments/FrendsTaskMetadata.json" target="/FrendsTaskMetadata.json" />
+  </files>
+</package>

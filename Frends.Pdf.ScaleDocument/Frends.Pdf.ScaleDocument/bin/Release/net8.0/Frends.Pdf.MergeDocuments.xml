@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Frends.Pdf.MergeDocuments</name>
+    </assembly>
+    <members>
+        <member name="T:Frends.Pdf.MergeDocuments.Definitions.Error">
+            <summary>
+            Error that occurred during the task.
+            </summary>
+        </member>
+        <member name="P:Frends.Pdf.MergeDocuments.Definitions.Error.Message">
+            <summary>
+            Summary of the error.
+            </summary>
+            <example>Unable to merge Pdfs.</example>
+        </member>
+        <member name="P:Frends.Pdf.MergeDocuments.Definitions.Error.AdditionalInfo">
+            <summary>
+            Additional information about the error.
+            </summary>
+            <example>object { Exception AdditionalInfo }</example>
+        </member>
+        <member name="T:Frends.Pdf.MergeDocuments.Definitions.Input">
+            <summary>
+            Essential parameters.
+            </summary>
+        </member>
+        <member name="P:Frends.Pdf.MergeDocuments.Definitions.Input.InputFilePaths">
+            <summary>
+            Paths to files to merge.
+            </summary>
+            <example>["C:/files/foo.pdf", "C:/files/bar.pdf"]</example>
+        </member>
+        <member name="P:Frends.Pdf.MergeDocuments.Definitions.Input.DestinationFilePath">
+            <summary>
+            Path where to save merged Pdf.
+            </summary>
+            <example>"C:/files/merged.pdf"</example>
+        </member>
+        <member name="T:Frends.Pdf.MergeDocuments.Definitions.Options">
+            <summary>
+            Additional parameters.
+            </summary>
+        </member>
+        <member name="P:Frends.Pdf.MergeDocuments.Definitions.Options.ThrowErrorOnFailure">
+            <summary>
+            Whether to throw an error on failure.
+            </summary>
+            <example>false</example>
+        </member>
+        <member name="P:Frends.Pdf.MergeDocuments.Definitions.Options.ErrorMessageOnFailure">
+            <summary>
+            Overrides the error message on failure.
+            </summary>
+            <example>Custom error message</example>
+        </member>
+        <member name="T:Frends.Pdf.MergeDocuments.Definitions.Result">
+            <summary>
+            Result of the task.
+            </summary>
+        </member>
+        <member name="P:Frends.Pdf.MergeDocuments.Definitions.Result.Success">
+            <summary>
+            Indicates if the task completed successfully.
+            </summary>
+            <example>true</example>
+        </member>
+        <member name="P:Frends.Pdf.MergeDocuments.Definitions.Result.Error">
+            <summary>
+            Error that occurred during task execution.
+            </summary>
+            <example>object { string Message, object { Exception AdditionalInfo } }</example>
+        </member>
+        <member name="T:Frends.Pdf.MergeDocuments.Pdf">
+            <summary>
+            Converts an A3 PDF into an A4-scaled version using PdfSharpCore (XPdfForm).
+            Uses only the first file in InputFilePaths as the source.
+            </summary>
+        </member>
+        <member name="T:Frends.Pdf.MergeDocuments.Helpers.ErrorHandler">
+            <summary>
+            Handles error with usage of a standard ThrowOnFailure Frends flag
+            </summary>
+        </member>
+        <member name="M:Frends.Pdf.MergeDocuments.Helpers.ErrorHandler.Handle(System.Exception,System.Boolean,System.String)">
+            <summary>
+            Handler for exceptions
+            </summary>
+            <param name="exception">Caught exception</param>
+            <param name="throwOnFailure">Frends flag</param>
+            <param name="errorMessage">Message to throw in error event</param>
+            <returns>Throw exception if a flag is true, else return Result with Error info</returns>
+        </member>
+    </members>
+</doc>

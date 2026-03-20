@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Frends.Pdf.ScaleDocument</name>
+    </assembly>
+    <members>
+        <member name="T:Frends.Pdf.ScaleDocument.Definitions.FileExistsActionEnum">
+            <summary>
+            Actions if the output document already exists.
+            </summary>
+        </member>
+        <member name="F:Frends.Pdf.ScaleDocument.Definitions.FileExistsActionEnum.Error">
+            <summary>
+            Throw error.
+            </summary>
+        </member>
+        <member name="F:Frends.Pdf.ScaleDocument.Definitions.FileExistsActionEnum.Overwrite">
+            <summary>
+            Overwrite the existing document.
+            </summary>
+        </member>
+        <member name="F:Frends.Pdf.ScaleDocument.Definitions.FileExistsActionEnum.Rename">
+            <summary>
+            Rename the new document.
+            </summary>
+        </member>
+        <member name="T:Frends.Pdf.ScaleDocument.Definitions.PageSizeEnum">
+            <summary>
+            Page size options.
+            </summary>
+        </member>
+        <member name="T:Frends.Pdf.ScaleDocument.Definitions.PageOrientationEnum">
+            <summary>
+            Options for page orientation.
+            </summary>
+        </member>
+        <member name="T:Frends.Pdf.ScaleDocument.Definitions.Error">
+            <summary>
+            Error that occurred during the task.
+            </summary>
+        </member>
+        <member name="P:Frends.Pdf.ScaleDocument.Definitions.Error.Message">
+            <summary>
+            Summary of the error.
+            </summary>
+            <example>Unable to scale Pdf.</example>
+        </member>
+        <member name="P:Frends.Pdf.ScaleDocument.Definitions.Error.AdditionalInfo">
+            <summary>
+            Additional information about the error.
+            </summary>
+            <example>object { Exception AdditionalInfo }</example>
+        </member>
+        <member name="T:Frends.Pdf.ScaleDocument.Definitions.Input">
+            <summary>
+            Essential parameters.
+            </summary>
+        </member>
+        <member name="P:Frends.Pdf.ScaleDocument.Definitions.Input.InputBase64">
+            <summary>
+            Base64 encoded binary data of the file to scale.
+            </summary>
+        </member>
+        <member name="P:Frends.Pdf.ScaleDocument.Definitions.Input.Size">
+            <summary>
+            Document page size to which to scale.
+            </summary>
+            <example>A4</example>
+        </member>
+        <member name="P:Frends.Pdf.ScaleDocument.Definitions.Input.OnlyScaleDown">
+            <summary>
+            If true, the file will only be scaled down in size. If any pages are smaller than the target size, they will be left unchanged. If false, all pages will be scaled to fit the target size.
+            </summary>
+            <example>false</example>
+        </member>
+        <member name="T:Frends.Pdf.ScaleDocument.Definitions.Options">
+            <summary>
+            Additional parameters.
+            </summary>
+        </member>
+        <member name="P:Frends.Pdf.ScaleDocument.Definitions.Options.FileExistsAction">
+            <summary>
+            What to do if destination file already exists.
+            </summary>
+            <example>Error</example>
+        </member>
+        <member name="P:Frends.Pdf.ScaleDocument.Definitions.Options.ThrowErrorOnFailure">
+            <summary>
+            Whether to throw an error on failure.
+            </summary>
+            <example>false</example>
+        </member>
+        <member name="P:Frends.Pdf.ScaleDocument.Definitions.Options.ErrorMessageOnFailure">
+            <summary>
+            Overrides the error message on failure.
+            </summary>
+            <example>Custom error message</example>
+        </member>
+        <member name="T:Frends.Pdf.ScaleDocument.Definitions.Result">
+            <summary>
+            Result of the task.
+            </summary>
+        </member>
+        <member name="P:Frends.Pdf.ScaleDocument.Definitions.Result.Success">
+            <summary>
+            Indicates if the task completed successfully.
+            </summary>
+            <example>true</example>
+        </member>
+        <member name="P:Frends.Pdf.ScaleDocument.Definitions.Result.ResultBase64">
+            <summary>
+            Base 64 binary of the scaled PDF file.
+            </summary>
+        </member>
+        <member name="P:Frends.Pdf.ScaleDocument.Definitions.Result.Error">
+            <summary>
+            Error that occurred during task execution.
+            </summary>
+            <example>object { string Message, object { Exception AdditionalInfo } }</example>
+        </member>
+        <member name="T:Frends.Pdf.ScaleDocument.Pdf">
+            <summary>
+            Creates a new scaled PDF file from a given source PDF file. Each page of the source PDF is scaled to fit inside the target size while maintaining the aspect ratio. The output PDF will have the same number of pages as the source, but each page will be resized in either portrait or landscape orientation depending on the original page orientation.
+            </summary>
+        </member>
+        <member name="T:Frends.Pdf.ScaleDocument.Helpers.ErrorHandler">
+            <summary>
+            Handles error with usage of a standard ThrowOnFailure Frends flag
+            </summary>
+        </member>
+        <member name="M:Frends.Pdf.ScaleDocument.Helpers.ErrorHandler.Handle(System.Exception,System.Boolean,System.String)">
+            <summary>
+            Handler for exceptions
+            </summary>
+            <param name="exception">Caught exception</param>
+            <param name="throwOnFailure">Frends flag</param>
+            <param name="errorMessage">Message to throw in error event</param>
+            <returns>Throw exception if a flag is true, else return Result with Error info</returns>
+        </member>
+    </members>
+</doc>
