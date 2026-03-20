@@ -10,7 +10,11 @@ You can install the Task via frends UI Task View.
 
 ### Clone a copy of the repository
 
-`git clone https://github.com/FrendsPlatform/Frends.Pdf.git`
+`git clone https://github.com/pixelsnow/Frends_CustomTask_PdfScaleDocument.git`
+
+### Navigate to task directory
+
+`cd Frends.Pdf.ScaleDocument`
 
 ### Build the project
 
