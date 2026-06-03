@@ -487,13 +487,13 @@
     "/home/codespace/.nuget/packages/": {}
   },
   "project": {
-    "version": "1.0.6",
+    "version": "1.0.7",
     "restore": {
-      "projectUniqueName": "/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument.csproj",
+      "projectUniqueName": "/workspaces/Frends_CustomTask_PdfScaleDocument/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument.csproj",
       "projectName": "Frends.Pdf.ScaleDocument",
-      "projectPath": "/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument.csproj",
+      "projectPath": "/workspaces/Frends_CustomTask_PdfScaleDocument/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument.csproj",
       "packagesPath": "/home/codespace/.nuget/packages/",
-      "outputPath": "/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/obj/",
+      "outputPath": "/workspaces/Frends_CustomTask_PdfScaleDocument/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/codespace/.nuget/NuGet/NuGet.Config"
@@ -520,7 +520,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "10.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -555,11 +555,11 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.22, 8.0.22]"
+            "version": "[8.0.25, 8.0.25]"
           },
           {
             "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.22, 8.0.22]"
+            "version": "[8.0.25, 8.0.25]"
           }
         ],
         "frameworkReferences": {
@@ -567,7 +567,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

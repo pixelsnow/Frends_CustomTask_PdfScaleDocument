@@ -12,6 +12,11 @@ public class Result
     public bool Success { get; set; }
 
     /// <summary>
+    /// Returns info log about the execution
+    /// </summary>
+    public string Info { get; set; }
+
+    /// <summary>
     /// Base 64 binary of the scaled PDF file.
     /// </summary>
     public string ResultBase64 { get; set; }

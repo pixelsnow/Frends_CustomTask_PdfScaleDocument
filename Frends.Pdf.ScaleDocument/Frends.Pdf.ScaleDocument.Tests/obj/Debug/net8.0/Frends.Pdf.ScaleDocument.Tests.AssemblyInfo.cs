@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Frends.Pdf.ScaleDocument.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b22bbfb6e7c51c6c79c6b296ddb0a1772aa3a4a6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2e74569a28cc7074f809b6b25d632675835c4d11")]
 [assembly: System.Reflection.AssemblyProductAttribute("Frends.Pdf.ScaleDocument.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Frends.Pdf.ScaleDocument.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

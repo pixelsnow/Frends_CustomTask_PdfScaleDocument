@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "saJN4bZAvdQ=",
+  "dgSpecHash": "NPTPSP1Cb1M=",
   "success": true,
-  "projectFilePath": "/workspaces/Frends_custom_task/Frends.Pdf/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument.Tests/Frends.Pdf.ScaleDocument.Tests.csproj",
+  "projectFilePath": "/workspaces/Frends_CustomTask_PdfScaleDocument/Frends.Pdf.ScaleDocument/Frends.Pdf.ScaleDocument.Tests/Frends.Pdf.ScaleDocument.Tests.csproj",
   "expectedPackageFiles": [
     "/home/codespace/.nuget/packages/coverlet.collector/6.0.4/coverlet.collector.6.0.4.nupkg.sha512",
     "/home/codespace/.nuget/packages/microsoft.applicationinsights/2.22.0/microsoft.applicationinsights.2.22.0.nupkg.sha512",
@@ -28,8 +28,8 @@
     "/home/codespace/.nuget/packages/system.diagnostics.diagnosticsource/5.0.0/system.diagnostics.diagnosticsource.5.0.0.nupkg.sha512",
     "/home/codespace/.nuget/packages/system.reflection.metadata/8.0.0/system.reflection.metadata.8.0.0.nupkg.sha512",
     "/home/codespace/.nuget/packages/system.security.cryptography.pkcs/8.0.1/system.security.cryptography.pkcs.8.0.1.nupkg.sha512",
-    "/home/codespace/.nuget/packages/microsoft.netcore.app.ref/8.0.22/microsoft.netcore.app.ref.8.0.22.nupkg.sha512",
-    "/home/codespace/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.22/microsoft.aspnetcore.app.ref.8.0.22.nupkg.sha512"
+    "/home/codespace/.nuget/packages/microsoft.netcore.app.ref/8.0.25/microsoft.netcore.app.ref.8.0.25.nupkg.sha512",
+    "/home/codespace/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.25/microsoft.aspnetcore.app.ref.8.0.25.nupkg.sha512"
   ],
   "logs": []
 }

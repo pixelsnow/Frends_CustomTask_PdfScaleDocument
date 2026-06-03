@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "Frends.Pdf.ScaleDocument/1.0.6": {
+      "Frends.Pdf.ScaleDocument/1.0.7": {
         "dependencies": {
           "PDFsharp-MigraDoc": "6.2.4"
         },
@@ -117,7 +117,7 @@
     }
   },
   "libraries": {
-    "Frends.Pdf.ScaleDocument/1.0.6": {
+    "Frends.Pdf.ScaleDocument/1.0.7": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

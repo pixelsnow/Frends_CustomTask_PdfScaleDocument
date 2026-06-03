@@ -107,6 +107,11 @@
             </summary>
             <example>true</example>
         </member>
+        <member name="P:Frends.Pdf.ScaleDocument.Definitions.Result.Info">
+            <summary>
+            Returns info log about the execution
+            </summary>
+        </member>
         <member name="P:Frends.Pdf.ScaleDocument.Definitions.Result.ResultBase64">
             <summary>
             Base 64 binary of the scaled PDF file.
