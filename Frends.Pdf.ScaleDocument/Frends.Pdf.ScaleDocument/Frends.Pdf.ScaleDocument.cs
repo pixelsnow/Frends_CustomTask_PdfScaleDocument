@@ -40,6 +40,8 @@ namespace Frends.Pdf.ScaleDocument
 
                 using var inputStream = new MemoryStream(inputBytes);
                 using var form = XPdfForm.FromStream(inputStream);
+                // Also open a PdfDocument to read page rotation values
+                using var inputDoc = PdfReader.Open(new MemoryStream(inputBytes), PdfDocumentOpenMode.Import);
                 using var output = new PdfDocument();
 
                 // Also open a PdfDocument to read page rotation values
@@ -53,6 +55,36 @@ namespace Frends.Pdf.ScaleDocument
                 double targetSizeHeightPt = height.Point;
                 // Log target size (only)
                 logInfo += $"Target size (points) width={targetSizeWidthPt}, height={targetSizeHeightPt}\n";
+
+                static void DrawRotatedForm(XGraphics gfx, XPdfForm form, int rotate, double scale, double dx, double dy)
+                {
+                    var scaledWidth = form.PointWidth * scale;
+                    var scaledHeight = form.PointHeight * scale;
+
+                    gfx.Save();
+
+                    switch (rotate)
+                    {
+                        case 90:
+                            gfx.TranslateTransform(dx + scaledHeight, dy);
+                            gfx.RotateTransform(90);
+                            break;
+                        case 180:
+                            gfx.TranslateTransform(dx + scaledWidth, dy + scaledHeight);
+                            gfx.RotateTransform(180);
+                            break;
+                        case 270:
+                            gfx.TranslateTransform(dx, dy + scaledWidth);
+                            gfx.RotateTransform(270);
+                            break;
+                        default:
+                            gfx.TranslateTransform(dx, dy);
+                            break;
+                    }
+
+                    gfx.DrawImage(form, new XRect(0, 0, scaledWidth, scaledHeight));
+                    gfx.Restore();
+                }
 
                 for (var pageIndex = 0; pageIndex < form.PageCount; pageIndex++)
                 {
@@ -80,29 +112,52 @@ namespace Frends.Pdf.ScaleDocument
 
                     var landscape = effectiveSrcWidth > effectiveSrcHeight;
 
-                    // Calculate target dimensions based on orientation
-                    var targetWidth = landscape ? targetSizeHeightPt : targetSizeWidthPt;
-                    var targetHeight = landscape ? targetSizeWidthPt : targetSizeHeightPt;
+                    // Read low-level PDF page info to get rotation
+                    var pdfPage = inputDoc.Pages[pageIndex];
+                    int rotate = 0;
+                    if (pdfPage.Elements.ContainsKey("/Rotate"))
+                        rotate = pdfPage.Elements.GetInteger("/Rotate");
+
+                    // If the imported form or the low-level page has a rotation, zero it so we control drawing
+                    if (pdfPage.Elements.ContainsKey("/Rotate"))
+                        pdfPage.Elements["/Rotate"] = new PdfInteger(0);
+                    if (form.Page != null && form.Page.Elements.ContainsKey("/Rotate"))
+                        form.Page.Elements["/Rotate"] = new PdfInteger(0);
+
+                    // If page rotation is 90 or 270, swap width/height for layout calculations
+                    bool pageIsRotated = rotate == 90 || rotate == 270;
+                    var visibleSrcWidth = pageIsRotated ? srcHeight : srcWidth;
+                    var visibleSrcHeight = pageIsRotated ? srcWidth : srcHeight;
+                    var visibleLandscape = visibleSrcWidth > visibleSrcHeight;
+
+                    // Determine target dimensions based on visible orientation
+                    var targetWidth = visibleLandscape ? targetSizeHeightPt : targetSizeWidthPt;
+                    var targetHeight = visibleLandscape ? targetSizeWidthPt : targetSizeHeightPt;
 
                     // This is needed to avoid scaling up pages that are smaller than the target size when OnlyScaleDown is true
                     bool pageIsSmallerThanTarget = effectiveSrcWidth <= targetWidth && effectiveSrcHeight <= targetHeight;
 
                     if (input.OnlyScaleDown && pageIsSmallerThanTarget)
                     {
-                        // Copy the page exactly as is without scaling
-                        PdfPage newPage = output.AddPage();
-                        newPage.Width = XUnit.FromPoint(srcWidth);
-                        newPage.Height = XUnit.FromPoint(srcHeight);
+                        // Copy the page exactly as is without scaling (centered)
+                        newPage.Width = XUnit.FromPoint(targetWidth);
+                        newPage.Height = XUnit.FromPoint(targetHeight);
                         using var gfx = XGraphics.FromPdfPage(newPage);
-                        gfx.DrawImage(form, new XRect(0, 0, srcWidth, srcHeight));
+
+                        var drawScale = 1.0;
+                        var visibleDrawWidth = visibleSrcWidth * drawScale;
+                        var visibleDrawHeight = visibleSrcHeight * drawScale;
+                        var dx = (targetWidth - visibleDrawWidth) / 2.0;
+                        var dy = (targetHeight - visibleDrawHeight) / 2.0;
+
+                        DrawRotatedForm(gfx, form, rotate, drawScale, dx, dy);
+                        logInfo += $"Page {pageIndex + 1}: no scale draw at dx={dx}, dy={dy}, drawScale={drawScale}\n";
                     }
                     else
                     {
                         // Scale the page to fit inside the target size
-                        PdfPage newPage = output.AddPage();
                         newPage.Width = XUnit.FromPoint(targetWidth);
                         newPage.Height = XUnit.FromPoint(targetHeight);
-
                         using var gfx = XGraphics.FromPdfPage(newPage);
 
                         // Compute scale to fit inside the target dimensions while maintaining aspect ratio
@@ -115,8 +170,8 @@ namespace Frends.Pdf.ScaleDocument
                         var dx = (targetWidth - drawWidth) / 2.0;
                         var dy = (targetHeight - drawHeight) / 2.0;
 
-                        // Draw the scaled page
-                        gfx.DrawImage(form, new XRect(dx, dy, drawWidth, drawHeight));
+                        DrawRotatedForm(gfx, form, rotate, scale, dx, dy);
+                        logInfo += $"Page {pageIndex + 1}: scaleX={scaleX}, scaleY={scaleY}, chosenScale={scale}, dx={dx}, dy={dy}\n";
                     }
                 }
 

@@ -117,6 +117,11 @@
             Base 64 binary of the scaled PDF file.
             </summary>
         </member>
+        <member name="P:Frends.Pdf.ScaleDocument.Definitions.Result.Info">
+            <summary>
+            Additional informational text from the task run.
+            </summary>
+        </member>
         <member name="P:Frends.Pdf.ScaleDocument.Definitions.Result.Error">
             <summary>
             Error that occurred during task execution.

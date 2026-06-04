@@ -10,6 +10,11 @@ public class Result
     /// </summary>
     /// <example>true</example>
     public bool Success { get; set; }
+    
+    /// <summary>
+    /// Additional informational text from the task run.
+    /// </summary>
+    public string Info { get; set; }
 
     /// <summary>
     /// Returns info log about the execution
